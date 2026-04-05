@@ -1,0 +1,4 @@
+interface:
+  display_name: "Generative Testing"
+  short_description: "Generate backend test assets from requirements and code"
+  default_prompt: "Use $generative-testing to generate backend test strategy, cases, and release evidence with dual-layer output (structured_result JSON + review_report) and default quantitative gate profile."

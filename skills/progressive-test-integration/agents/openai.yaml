@@ -1,0 +1,4 @@
+interface:
+  display_name: "Progressive Test Integration"
+  short_description: "Incremental backend test planning and maintenance"
+  default_prompt: "Use $progressive-test-integration to analyze backend changes and maintain incremental regression tests with dual-layer output (structured_result JSON + review_report) and default quantitative gate profile."

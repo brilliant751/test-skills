@@ -1,0 +1,106 @@
+# Schema and Gate Profile (v1)
+
+本文件定义 `generative-testing` 的双层输出基线：
+- Section A: `structured_result`（JSON）
+- Section B: `review_report`（自然语言）
+
+`review_report` 只能渲染 `structured_result` 已存在的事实，不得新增结论。
+
+## Structured Result JSON (minimum contract)
+
+```json
+{
+  "meta": {
+    "schema_version": "1.0",
+    "skill_version": "1.1",
+    "generated_at": "2026-04-05T10:00:00Z",
+    "evidence_sources": ["ac_doc", "repo_readme", "module_notes"],
+    "using_default_profile": true
+  },
+  "scope_and_strategy": {
+    "scope_statement": "backend order and payment flows only",
+    "test_objectives": ["validate rollback consistency", "validate auth boundaries"],
+    "risk_tiers": ["high", "medium"]
+  },
+  "ac_mapping_matrix": [
+    {
+      "ac_id": "AC-01",
+      "objective": "order creation must be idempotent",
+      "test_candidates": ["GEN-101", "GEN-102"],
+      "coverage_intent": "functional + concurrency"
+    }
+  ],
+  "test_case_package": [
+    {
+      "test_id": "GEN-101",
+      "priority": "P0",
+      "type": "integration",
+      "target_layer": "service",
+      "reason": "core business path",
+      "evidence_ref": ["ac:AC-01", "code:order_service"]
+    }
+  ],
+  "execution_plan": {
+    "sequence": ["smoke critical paths", "negative paths", "boundary and race scenarios"],
+    "observability_points": ["API response", "DB state", "error logs", "domain events"]
+  },
+  "sample_findings": [
+    {
+      "id": "FIND-01",
+      "severity": "P1",
+      "status": "open",
+      "reproducible": true,
+      "evidence_ref": ["test:GEN-101", "log:trace_223"]
+    }
+  ],
+  "coverage_metrics": {
+    "ac_coverage": 0.92,
+    "risk_coverage": 0.85,
+    "blocked_tests": 1
+  },
+  "analysis_checklist": {
+    "accuracy_notes": ["sample findings map to AC and failure evidence"],
+    "coverage_notes": ["critical AC covered, non-critical edge cases partially covered"],
+    "generalization_notes": ["design is portable across Go/Java/Python stacks"],
+    "limitations": ["external dependency SLAs not fully known"]
+  },
+  "assumptions": ["staging behavior approximates production transaction semantics"],
+  "unknowns": ["final retry policy for third-party payment API"],
+  "blockers": [],
+  "gate_evaluation": {
+    "profile_id": "default-profile-v1",
+    "rules_hit": ["0.85 <= ac_coverage < 0.95 => GO_WITH_CONDITIONS"],
+    "final_decision": "GO_WITH_CONDITIONS",
+    "rationale": "Coverage is acceptable but below strict-go threshold."
+  }
+}
+```
+
+## Default Quantitative Gate Profile
+
+默认门禁（无需用户配置）：
+- `P0 open > 0 => NO_GO`
+- `P1 open > 3 => NO_GO`
+- `ac_coverage < 0.85 => NO_GO`
+- `0.85 <= ac_coverage < 0.95 => GO_WITH_CONDITIONS`
+- `risk_coverage < 0.80 => GO_WITH_CONDITIONS`
+- `blocked_tests > 0` 且命中核心链路 => `NO_GO`，否则 `GO_WITH_CONDITIONS`
+- 其余满足 => `GO`
+
+## Gate Overrides (optional)
+
+用户可选提供 `gate_overrides`：
+- 仅允许覆盖阈值参数，不允许删除字段或改变 schema 结构。
+- 使用覆盖时，输出：
+  - `meta.using_default_profile = false`
+  - `gate_evaluation.profile_id = "custom"`
+- 未提供覆盖时，输出：
+  - `meta.using_default_profile = true`
+  - `gate_evaluation.profile_id = "default-profile-v1"`
+
+## Decision Trace in Review Report
+
+`review_report` 的最后必须包含 3-5 行 `Decision Trace`：
+- 已命中的门禁规则（按优先级展示）。
+- 对最终判定的直接解释。
+- 若存在未知项/阻塞项，说明其对判定的影响。
