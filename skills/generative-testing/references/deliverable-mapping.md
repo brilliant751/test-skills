@@ -12,6 +12,8 @@
 
 - 用于生成的 Prompt 文本。
 - Model 推荐（primary + fallback）。
+- 运行时实际使用模型（`model_used`）与版本/日期。
+- Prompt 版本与文件路径（`prompt_artifacts[]`），确保可复现。
 - 生成的 strategy、test cases 与 release package。
 - `structured_result`（JSON）与 `review_report`（自然语言）双层输出。
 
@@ -29,6 +31,7 @@
 - Accuracy（defect 相关性与可行动性）。
 - Coverage（AC 覆盖与 risk-scenario 覆盖）。
 - Generalization（跨 backend 语言/框架）。
+- 建议至少提供：`precision`、`recall`、`f1`、`validation_sample_size`。
 - 与传统非 AI testing 的对比。
 - Quantitative gate 命中情况与判定一致性（schema 与报告一致）。
 

@@ -15,7 +15,15 @@
     "skill_version": "1.1",
     "generated_at": "2026-04-05T10:00:00Z",
     "evidence_sources": ["ac_doc", "diff_summary", "repo_readme"],
-    "using_default_profile": true
+    "using_default_profile": true,
+    "models": {
+      "primary": "gpt-5.4",
+      "fallback": "gpt-5.4-mini"
+    },
+    "prompt_artifacts": [
+      "prompts/system-v1.md",
+      "prompts/incremental-order-pr42-v2.md"
+    ]
   },
   "change_summary": {
     "changed_components": ["order_service", "payment_adapter"],
@@ -50,6 +58,22 @@
     "ac_coverage": 0.92,
     "risk_coverage": 0.85,
     "blocked_tests": 1
+  },
+  "analysis_metrics": {
+    "accuracy": {
+      "impact_precision": 0.83,
+      "defect_precision": 0.79,
+      "validation_sample_size": 38
+    },
+    "coverage": {
+      "ac_coverage": 0.92,
+      "risk_coverage": 0.85,
+      "critical_path_coverage": 0.94
+    },
+    "generalization": {
+      "projects_tested": 4,
+      "pass_rate_by_stack": ["Go:0.91", "Java:0.86", "Python:0.90"]
+    }
   },
   "test_debt": [
     {

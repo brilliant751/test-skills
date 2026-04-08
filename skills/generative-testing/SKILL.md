@@ -110,7 +110,7 @@ description: 基于自然语言需求和/或后端代码库上下文，跨语言
 ### Section A: `structured_result` (JSON)
 
 必须包含以下字段：
-- `meta`: `schema_version`, `skill_version`, `generated_at`, `evidence_sources[]`, `using_default_profile`
+- `meta`: `schema_version`, `skill_version`, `generated_at`, `evidence_sources[]`, `using_default_profile`, `models{primary,fallback}`, `prompt_artifacts[]`
 - `scope_and_strategy`: `scope_statement`, `test_objectives[]`, `risk_tiers[]`
 - `ac_mapping_matrix[]`: `ac_id`, `objective`, `test_candidates[]`, `coverage_intent`
 - `test_case_package[]`: `test_id`, `priority`, `type`, `target_layer`, `reason`, `evidence_ref[]`
@@ -118,6 +118,7 @@ description: 基于自然语言需求和/或后端代码库上下文，跨语言
 - `sample_findings[]`: `id`, `severity(P0-P3)`, `status(open/closed)`, `reproducible`, `evidence_ref[]`
 - `coverage_metrics`: `ac_coverage`, `risk_coverage`, `blocked_tests`
 - `analysis_checklist`: `accuracy_notes[]`, `coverage_notes[]`, `generalization_notes[]`, `limitations[]`
+- `analysis_metrics`: `accuracy{precision,recall,f1,validation_sample_size}`, `coverage{ac_coverage,risk_coverage,critical_path_coverage}`, `generalization{projects_tested,pass_rate_by_stack[]}`
 - `assumptions[]`, `unknowns[]`, `blockers[]`
 - `gate_evaluation`: `profile_id`, `rules_hit[]`, `final_decision(GO/GO_WITH_CONDITIONS/NO_GO)`, `rationale`
 

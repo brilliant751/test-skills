@@ -15,7 +15,15 @@
     "skill_version": "1.1",
     "generated_at": "2026-04-05T10:00:00Z",
     "evidence_sources": ["ac_doc", "repo_readme", "module_notes"],
-    "using_default_profile": true
+    "using_default_profile": true,
+    "models": {
+      "primary": "gpt-5.4",
+      "fallback": "gpt-5.4-mini"
+    },
+    "prompt_artifacts": [
+      "prompts/system-v1.md",
+      "prompts/task-order-service-v3.md"
+    ]
   },
   "scope_and_strategy": {
     "scope_statement": "backend order and payment flows only",
@@ -63,6 +71,23 @@
     "coverage_notes": ["critical AC covered, non-critical edge cases partially covered"],
     "generalization_notes": ["design is portable across Go/Java/Python stacks"],
     "limitations": ["external dependency SLAs not fully known"]
+  },
+  "analysis_metrics": {
+    "accuracy": {
+      "precision": 0.81,
+      "recall": 0.76,
+      "f1": 0.78,
+      "validation_sample_size": 42
+    },
+    "coverage": {
+      "ac_coverage": 0.92,
+      "risk_coverage": 0.85,
+      "critical_path_coverage": 0.95
+    },
+    "generalization": {
+      "projects_tested": 3,
+      "pass_rate_by_stack": ["Go:0.90", "Java:0.88", "Python:0.92"]
+    }
   },
   "assumptions": ["staging behavior approximates production transaction semantics"],
   "unknowns": ["final retry policy for third-party payment API"],
