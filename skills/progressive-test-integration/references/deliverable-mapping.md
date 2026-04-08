@@ -11,6 +11,8 @@
 
 - 本次运行使用的 Prompt。
 - Model 推荐（primary + fallback）。
+- 运行时实际使用模型（`model_used`）与版本/日期。
+- Prompt 版本与文件路径（`prompt_artifacts[]`），确保可复现。
 - 生成的 testing artifacts（impact matrix、regression plan、registry delta、defects）。
 - `structured_result`（JSON）与 `review_report`（自然语言）双层输出。
 
@@ -27,6 +29,7 @@
 - Accuracy（impact 与 defect 预测质量）。
 - Coverage（AC 与 risk-scenario 覆盖）。
 - Generalization（跨不同 backend stack 的表现）。
+- 建议至少提供：`impact_precision`、`defect_precision`、`validation_sample_size`。
 - 与传统非 AI testing 的对比。
 - Quantitative gate 命中情况与判定一致性（schema 与报告一致）。
 

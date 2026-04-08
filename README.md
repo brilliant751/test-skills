@@ -83,3 +83,9 @@
 
 - 当前能力范围是 backend testing，不包含 UI/E2E 自动化。
 - 输入信息不完整时，Skill 会 best-effort 输出，并在 `assumptions/unknowns/blockers` 标注不确定性。
+
+## 作业提交映射
+
+为对齐 `Assignment 1.zh.md` 的提交要求，新增可直接填写的提交包模板：
+
+- [submission/Assignment1-Submission-Pack.zh.md](/Users/qiuqiu/Desktop/test-skills/submission/Assignment1-Submission-Pack.zh.md)

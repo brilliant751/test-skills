@@ -99,12 +99,13 @@ description: 基于自然语言变更上下文、git diff 摘要与 acceptance c
 ### Section A: `structured_result` (JSON)
 
 必须包含以下字段：
-- `meta`: `schema_version`, `skill_version`, `generated_at`, `evidence_sources[]`, `using_default_profile`
+- `meta`: `schema_version`, `skill_version`, `generated_at`, `evidence_sources[]`, `using_default_profile`, `models{primary,fallback}`, `prompt_artifacts[]`
 - `change_summary`: `changed_components[]`, `risk_tiers[]`
 - `impact_matrix[]`: `diff_item`, `capability`, `affected_tests[]`, `risk_type`
 - `incremental_decisions[]`: `action(ADD/UPDATE/DEPRECATE/KEEP)`, `test_id`, `reason`, `evidence_ref[]`
 - `defects[]`: `id`, `severity(P0-P3)`, `status(open/closed)`, `reproducible`, `evidence_ref[]`
 - `coverage_metrics`: `ac_coverage`, `risk_coverage`, `blocked_tests`
+- `analysis_metrics`: `accuracy{impact_precision,defect_precision,validation_sample_size}`, `coverage{ac_coverage,risk_coverage,critical_path_coverage}`, `generalization{projects_tested,pass_rate_by_stack[]}`
 - `test_debt[]`: `item`, `risk_level`, `owner`, `eta`, `blocking_release`
 - `assumptions[]`, `unknowns[]`, `blockers[]`
 - `gate_evaluation`: `profile_id`, `rules_hit[]`, `final_decision(GO/GO_WITH_CONDITIONS/NO_GO)`, `rationale`
